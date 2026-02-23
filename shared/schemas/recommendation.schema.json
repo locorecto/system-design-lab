@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Recommendation",
+  "type": "object",
+  "required": ["recommendation_id", "technology", "category", "problem_observed", "expected_impact", "tradeoffs"],
+  "properties": {
+    "recommendation_id": { "type": "string" },
+    "technology": { "type": "string" },
+    "category": { "type": "string" },
+    "problem_observed": { "type": "string" },
+    "expected_impact": { "type": "string" },
+    "tradeoffs": { "type": "array", "items": { "type": "string" } },
+    "when_not_to_use": { "type": "string" }
+  },
+  "additionalProperties": false
+}
+

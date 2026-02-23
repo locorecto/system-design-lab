@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://system-design-lab.local/schemas/run-create-request.schema.json",
+  "title": "RunCreateRequest",
+  "type": "object",
+  "required": ["scenario_id", "variant_id", "load_profile", "sandbox_profile"],
+  "properties": {
+    "scenario_id": { "type": "string" },
+    "variant_id": { "type": "string" },
+    "sandbox_profile": { "type": "string", "enum": ["low", "medium", "high"] },
+    "safety_overrides": {
+      "type": "object",
+      "properties": {
+        "max_cpu_pct": { "type": "integer", "minimum": 1, "maximum": 100 },
+        "max_memory_mb": { "type": "integer", "minimum": 128 }
+      },
+      "additionalProperties": false
+    },
+    "load_profile": {
+      "type": "object",
+      "required": ["type", "duration_sec", "concurrency", "request_mix"],
+      "properties": {
+        "type": { "type": "string", "enum": ["constant", "ramp", "spike", "step", "soak"] },
+        "duration_sec": { "type": "integer", "minimum": 1 },
+        "concurrency": { "type": "integer", "minimum": 1 },
+        "target_rps": { "type": "integer", "minimum": 1 },
+        "start_rps": { "type": "integer", "minimum": 1 },
+        "end_rps": { "type": "integer", "minimum": 1 },
+        "request_mix": {
+          "type": "object",
+          "properties": {
+            "read": { "type": "number", "minimum": 0, "maximum": 1 },
+            "write": { "type": "number", "minimum": 0, "maximum": 1 },
+            "search": { "type": "number", "minimum": 0, "maximum": 1 }
+          },
+          "required": ["read", "write"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
+
