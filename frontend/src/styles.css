@@ -65,6 +65,49 @@ body {
   padding: 10px;
 }
 
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.chart-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.chart-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px;
+  background: #fff;
+}
+
+.chart-title {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.mini-chart {
+  width: 100%;
+  height: 90px;
+  display: block;
+}
+
+.chart-caption {
+  font-size: 11px;
+}
+
+.warning-text {
+  color: #9f2a2a;
+  margin: 10px 0 0;
+}
+
 .pill {
   display: inline-block;
   border: 1px solid var(--line);
@@ -74,7 +117,8 @@ body {
 }
 
 textarea,
-input {
+input,
+select {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -91,8 +135,52 @@ button {
   cursor: pointer;
 }
 
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.secondary-btn {
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
 ul {
   margin: 8px 0 0;
   padding-left: 18px;
 }
 
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.config-panel {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.ratio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.config-grid label,
+.ratio-grid label {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}

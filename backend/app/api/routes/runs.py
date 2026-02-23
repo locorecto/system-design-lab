@@ -1,13 +1,11 @@
-from uuid import uuid4
-
 from fastapi import APIRouter
+from fastapi.responses import StreamingResponse
 
+from app.api.deps import run_manager
 from app.models.contracts import RunCreateRequest
-from app.services.run_manager import RunManager
 
 
 router = APIRouter()
-run_manager = RunManager()
 
 
 @router.post("/runs")
@@ -27,22 +25,14 @@ def stop_run(run_id: str) -> dict:
 
 @router.get("/runs/{run_id}/metrics")
 def get_run_metrics(run_id: str) -> dict:
-    return {
-        "run_id": run_id,
-        "series": [
-            {"name": "rps", "points": []},
-            {"name": "latency_p95_ms", "points": []},
-        ],
-    }
+    return run_manager.get_metrics(run_id)
 
 
 @router.get("/runs/{run_id}/events")
 def get_run_events(run_id: str) -> dict:
-    return {"run_id": run_id, "events": []}
+    return run_manager.get_events(run_id)
 
 
 @router.get("/runs/{run_id}/stream")
-def stream_hint(run_id: str) -> dict:
-    # Placeholder until WebSocket/SSE is implemented.
-    return {"run_id": run_id, "transport": "todo", "endpoint": f"/api/runs/{run_id}/stream"}
-
+def stream_run(run_id: str) -> StreamingResponse:
+    return StreamingResponse(run_manager.stream_chunks(run_id), media_type="text/event-stream")

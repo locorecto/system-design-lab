@@ -35,6 +35,7 @@ class RunCreateRequest(BaseModel):
     scenario_id: str
     variant_id: str
     load_profile: LoadProfile
+    sandbox_backend: Literal["process", "container"] = "process"
     sandbox_profile: Literal["low", "medium", "high"] = "medium"
     safety_overrides: SafetyOverrides | None = None
 
@@ -45,4 +46,3 @@ class RunRecord(BaseModel):
     variant_id: str
     status: str
     phase: str
-

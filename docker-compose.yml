@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "18010:8000"
+    volumes:
+      - ./backend/data:/app/backend/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "15174:5173"
+    depends_on:
+      - backend
+    environment:
+      VITE_API_BASE: http://localhost:18010/api
+    restart: unless-stopped
